@@ -102,4 +102,74 @@ Pour évaluer la performance d'un modèle de classification multiclasse, plusieu
 En utilisant ces métriques, nous pouvons obtenir une évaluation complète de la capacité du modèle à effectuer une classification multiclasse précise et cohérente sur un ensemble de données.
 
 ----
+
+# Rapport sur le TP : Classification des données MNIST
+
+## Introduction
+Dans ce TP, notre objectif est de réaliser la classification des données MNIST, qui consiste en des images de chiffres manuscrits. Nous allons explorer différentes étapes du processus de classification, y compris la récupération des données, la séparation en ensembles d'entraînement et de test, la visualisation des images, la création de classificateurs binaires et multiclasse, ainsi que l'évaluation des performances à l'aide de différentes métriques.
+
+## Étape 1 : Récupération des données
+Nous commençons par charger les données MNIST à l'aide de la bibliothèque scikit-learn. Les étiquettes sont également converties en types appropriés.
+
+```python
+mnist = fetch_openml('mnist_784', version=1, cache=True, as_frame=False)
+mnist.target = mnist.target.astype(np.int8)
+```
+
+## Étape 2 : Séparation des données d'entraînement et de test
+Nous séparons nos données en ensembles d'entraînement et de test, en veillant à mélanger les données. Le mélange est essentiel pour garantir une répartition aléatoire.
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+### Question :
+**Quelle est l'importance de mélanger les données avant de les diviser en ensembles d'entraînement et de test ?**
+
+## Étape 3 : Visualisation d'une image
+Nous utilisons Matplotlib pour visualiser une image à partir du jeu de données.
+
+```python
+some_digit = X[24000]
+some_digit_image = some_digit.reshape(28, 28)
+plt.imshow(some_digit_image, cmap = mpl.cm.binary, interpolation="nearest")
+plt.axis("off")
+plt.show()
+```
+
+## Étape 4 : Classificateur binaire
+Nous choisissons un chiffre et utilisons le classificateur SGDClassifier pour prédire si une image correspond à ce chiffre. Une nouvelle variable cible binaire est créée.
+
+### Questions :
+**Pourquoi devons-nous créer une variable cible binaire ?**
+**Comment entraînons-nous le modèle SGDClassifier pour cette tâche de classification binaire ?**
+
+## Étape 5 : Précision et rappel (faux-positif/faux-négatif)
+Les performances du modèle binaire sont évaluées en utilisant les métriques de précision (precision_score) et de rappel (recall_score).
+
+### Questions :
+**Quelle est la signification de la précision et du rappel dans le contexte de la classification ?**
+**Comment calculons-nous la précision et le rappel ?**
+
+## Étape 6 : Comparaison avec RandomForestClassifier
+Nous comparons les performances du modèle SGDClassifier avec celles d'un autre classificateur, le RandomForestClassifier.
+
+### Questions :
+**Quelle est la différence entre le SGDClassifier et le RandomForestClassifier ?**
+**Comment comparons-nous les performances de ces deux classificateurs ?**
+
+## Étape 7 : Classificateur multiclasse
+Dans cette étape, nous tentons de prédire directement les chiffres de 0 à 9 en utilisant un modèle de classification multiclasse.
+
+### Questions :
+**Comment adaptons-nous notre modèle pour effectuer une classification multiclasse ?**
+**Quelles métriques d'évaluation devrions-nous utiliser pour évaluer la performance de ce modèle ?**
+
+## Conclusion
+Ce TP nous a permis de parcourir différentes étapes cruciales du processus de classification en utilisant le jeu de données MNIST. Nous avons exploré la création de classificateurs binaires, évalué leurs performances, comparé avec un classificateur RandomForest, et étendu notre approche à une classification multiclasse. Cette expérience nous a fourni une compréhension approfondie des défis et des techniques associés à la classification d'images.
+
+
+
+
+----
 AUTHOR  : YURTSEVEN Huseyin
